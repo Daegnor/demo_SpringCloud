@@ -2,21 +2,23 @@ package com.example.demo.web.model;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 //@JsonIgnoreProperties({"prixAchat", "id"})
-@JsonFilter(Product.KEY_DYNAMIC_FILTER)
+//@JsonFilter(Product.KEY_DYNAMIC_FILTER)
+@Entity
 public class Product {
     public static final String KEY_DYNAMIC_FILTER = "dynamicFilter";
+    @Id
     private int id;
     private String name;
     private int prix;
     private int prixAchat;
 
-    public Product(int id, String name, int prix, int prixAchat) {
-        this.id = id;
-        this.name = name;
-        this.prix = prix;
-        this.prixAchat = prixAchat;
+    public Product() {
+
     }
 
     public int getId() {
