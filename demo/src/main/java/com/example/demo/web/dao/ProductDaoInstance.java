@@ -11,9 +11,9 @@ public class ProductDaoInstance implements ProductDao{
     public static List<Product> products = new ArrayList<>();
 
     static {
-        products.add(new Product(1, "Test1", 300));
-        products.add(new Product(2, "Test2", 500));
-        products.add(new Product(3, "Test3", 700));
+        products.add(new Product(1, "Test1", 300, 120));
+        products.add(new Product(2, "Test2", 500, 200));
+        products.add(new Product(3, "Test3", 700, 400));
     }
 
     @Override

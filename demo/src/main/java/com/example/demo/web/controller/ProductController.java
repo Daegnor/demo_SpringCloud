@@ -2,7 +2,11 @@ package com.example.demo.web.controller;
 
 import com.example.demo.web.dao.ProductDao;
 import com.example.demo.web.model.Product;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,8 +25,13 @@ public class ProductController {
     }
 
     @GetMapping(BASE_URL)
-    public List<Product> listeProduits(){
-        return productDao.findAll();
+    public MappingJacksonValue listeProduits(){
+        List<Product> products = productDao.findAll();
+        SimpleBeanPropertyFilter myFilter = SimpleBeanPropertyFilter.serializeAllExcept("prixAchat");
+        FilterProvider listFilters = new SimpleFilterProvider().addFilter(Product.KEY_DYNAMIC_FILTER, myFilter);
+        MappingJacksonValue filteredProducts = new MappingJacksonValue(products);
+        filteredProducts.setFilters(listFilters);
+        return filteredProducts;
     }
 
     @GetMapping(PRODUCT_ROUTE)
